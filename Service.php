@@ -59,4 +59,27 @@ class Service
     {
         WebserviceKey::setPermissionForAccount($id_account, $permissions);
     }
+
+    /**
+     * Get data with key and options
+     *
+     * @param int $id_account id api access
+     * @param array $options searchs options https://devdocs.prestashop.com/1.7/development/webservice/tutorials/advanced-use/additional-list-parameters/
+     * @return string $key
+     */
+
+    public static function getData(string $key, array $options)
+    {
+        try {
+            $webService = new PrestaShopWebservice('http://localhost/mitienda', $key, false);
+            $xml = $webService->get($options);
+        } catch (PrestaShopWebserviceException $ex) {
+            return 'Error: <br />' . $ex->getMessage();
+        }
+        if($xml){
+            $var = $options['resource'];
+            $resources = $xml->$var->children();
+        }
+        return json_encode($resources);
+    }
 }
