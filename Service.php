@@ -35,4 +35,28 @@ class Service
         return $apiAccess->id;
     }
 
+    /**
+     * Get api key with id
+     *
+     * @param int $id_account id api access
+     * @return string $key
+     */
+
+    public static function getApiKey(int $id_account)
+    {
+        $apiAccess = new WebserviceKey($id_api);
+        return $apiAccess->key;
+    }
+
+    /**
+     * set o update permission
+     *
+     * @param int $id_account id api access
+     * @return string $key
+     */
+
+    public static function setPermissionForAccount(int $id_account, array $permissions)
+    {
+        WebserviceKey::setPermissionForAccount($id_account, $permissions);
+    }
 }
